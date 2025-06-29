@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DAN | Portfolio</title>
+  <title>&lt;Dan/dev&gt; | Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
   <style>
     :root {
-      --bg-light: #fefefe;
-      --text-light: #111;
       --bg-dark: #0a0a0a;
       --text-dark: #fefefe;
       --accent: #00ffe0;
@@ -15,16 +14,14 @@
       --hover: rgba(255,255,255,0.08);
       --font: 'Segoe UI', sans-serif;
     }
-    [data-theme="light"] {
-      --bg: var(--bg-light);
-      --text: var(--text-light);
-    }
     [data-theme="dark"] {
       --bg: var(--bg-dark);
       --text: var(--text-dark);
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #111111;
+    }
 
     body {
       background: var(--bg);
@@ -32,29 +29,30 @@
       font-family: var(--font);
       transition: background 0.3s, color 0.3s;
       scroll-behavior: smooth;
+      padding-bottom: 6rem;
     }
 
     header {
-      text-align: center;
-      padding: 4rem 1rem 2rem;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 999;
     }
 
     header h1 {
-      font-size: 3rem;
+      font-size: 1.8rem;
       color: var(--accent);
-      margin-bottom: 0.5rem;
     }
 
     nav {
-      position: sticky;
-      top: 0;
-      background: var(--bg);
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 1rem;
-      border-bottom: 1px solid #222;
-      z-index: 99;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 999;
+      font-size: 0.8rem;
     }
 
     nav button {
@@ -63,19 +61,35 @@
       color: var(--text);
       font-weight: bold;
       cursor: pointer;
-      font-size: 1rem;
-      transition: color 0.3s ease;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      transition: background 0.3s;
     }
 
     nav button:hover {
+      background: var(--hover);
       color: var(--accent);
+    }
+
+    .toggle-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: var(--glass-bg);
+      color: var(--accent);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.4rem 1rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      z-index: 999;
     }
 
     .section {
       display: none;
       max-width: 900px;
-      margin: auto;
-      padding: 2rem;
+      margin: 6rem auto 2rem;
+      padding: 1.5rem;
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
       border-radius: 12px;
@@ -90,94 +104,92 @@
     h2 {
       text-align: center;
       color: var(--accent);
-      margin-bottom: 1.5rem;
-      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.5rem;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
+    .project-grid {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
     }
 
-    ul.skills {
-      flex-direction: row;
+    .project-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0,255,224,0.08);
+      backdrop-filter: blur(14px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: floatCard 5s ease-in-out infinite;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px var(--accent);
+    }
+
+    .project-card h3 {
+      font-size: 1.3rem;
+      text-align: center;
+      color: var(--accent);
+      text-shadow: 0 0 5px var(--accent), 0 0 12px var(--accent);
+      animation: glowText 2.5s ease-in-out infinite alternate;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card p {
+      font-size: 0.95rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .skills {
+      display: flex;
       flex-wrap: wrap;
       justify-content: center;
-    }
-
-    li {
-      background: var(--hover);
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    li:hover {
-      color: var(--accent);
-      transform: scale(1.03);
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
       gap: 1rem;
+      list-style: none;
+      padding: 0;
     }
 
-    input, textarea {
-      padding: 0.8rem;
-      border: none;
+    .skills li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--hover);
+      padding: 0.7rem 1rem;
       border-radius: 8px;
-      background: #222;
-      color: white;
-    }
-
-    input:focus, textarea:focus {
-      outline: 2px solid var(--accent);
-    }
-
-    button.send {
-      background: var(--accent);
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      padding: 0.8rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button.send:hover {
-      background: #00e6cc;
-    }
-
-    .toggle-btn {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: var(--glass-bg);
-      color: var(--accent);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
       font-size: 0.9rem;
-      color: #777;
+    }
+
+    .skills i {
+      font-size: 1.2rem;
     }
 
     @keyframes fade {
       from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glowText {
+      from {
+        text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+        transform: translateY(0);
+      }
+      to {
+        text-shadow: 0 0 10px var(--accent), 0 0 24px var(--accent);
+        transform: translateY(-1px);
+      }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
     }
   </style>
 </head>
@@ -186,82 +198,105 @@
   <button class="toggle-btn" onclick="toggleTheme()">🌗 Theme</button>
 
   <header>
-    <h1>DAN | PORTFOLIO</h1>
+    <h1>&lt;Dan/dev&gt;</h1>
   </header>
+<nav>
+  <button onclick="showSection('projects')">Projects</button>
+  <button onclick="showSection('skills')">Skills</button>
+  <button onclick="showSection('about')">About</button>
+  <button onclick="showSection('contact')">Contact</button>
+</nav>
 
-  <nav>
-    <button onclick="showSection('projects')">Projects</button>
-    <button onclick="showSection('skills')">Skills</button>
-    <button onclick="showSection('about')">About</button>
-    <button onclick="showSection('contact')">Contact</button>
-  </nav>
 
-  <div class="container">
-    <section id="projects" class="section active">
-      <h2>Projects</h2>
-      <ul>
-        <li>Barangay Information System</li>
-        <li>Grocery Mall System</li>
-        <li>Student Record System</li>
-        <li>Inventory Management Dashboard</li>
-        <li>Online Voting Platform</li>
-        <li>Personal Budget Tracker</li>
-      </ul>
-    </section>
+  <section id="projects" class="section active">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Barangay Information System</h3>
+        <p>Centralized platform for managing residents and barangay operations efficiently.</p>
+      </div>
+      <div class="project-card">
+        <h3>Grocery Mall System</h3>
+        <p>POS and inventory management tool for small to medium-sized retail stores.</p>
+      </div>
+      <div class="project-card">
+        <h3>Student Record System</h3>
+        <p>Academic performance and profile tracker with printable report functionality.</p>
+      </div>
+      <div class="project-card">
+        <h3>Inventory Dashboard</h3>
+        <p>Visual dashboard for monitoring item stocks, categories, and analytics.</p>
+      </div>
+      <div class="project-card">
+        <h3>Online Voting Platform</h3>
+        <p>Secure, responsive web app for elections with real-time vote tally display.</p>
+      </div>
+      <div class="project-card">
+        <h3>Budget Tracker</h3>
+        <p>Track income and expenses with monthly insights and personal budgeting goals.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="skills" class="section">
-      <h2>Skills</h2>
-      <ul class="skills">
-        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li>
-        <li>Java</li><li>SQL</li><li>XAMPP</li><li>GitHub</li>
-        <li>PHP (Basic)</li><li>Responsive Design</li>
-      </ul>
-    </section>
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li><i class="devicon-html5-plain colored"></i> HTML</li>
+      <li><i class="devicon-css3-plain colored"></i> CSS</li>
+      <li><i class="devicon-javascript-plain colored"></i> JavaScript</li>
+      <li><i class="devicon-python-plain colored"></i> Python</li>
+      <li><i class="devicon-java-plain colored"></i> Java</li>
+      <li><i class="devicon-mysql-plain colored"></i> SQL</li>
+      <li><i class="devicon-xampp-plain colored"></i> XAMPP</li>
+       <li><i class="devicon-xampp-plain colored"></i> PHP</li>
+    </ul>
+  </section>
 
-    <section id="about" class="section">
-      <h2>About Me</h2>
-      <p style="text-align:center; line-height:1.6;">
-        Hello, I'm DAN — a BSIT student who enjoys learning how technology works from the inside out.  
-        I’m especially interested in both front-end design and back-end logic, and I spend my time building practical projects that help me grow.  
-        I'm still learning, but I’m always curious and excited to create solutions that are simple, useful, and thoughtfully built.
-      </p>
-    </section>
-
-<section id="contact" class="section">
-  <h2>Contact</h2>
-  <p style="text-align:center; font-size:1.1rem; line-height:1.8;">
-    If you'd like to get in touch, feel free to message me directly via Gmail:<br>
-    <a href="mailto:danielprudenciado74@gmail.com" style="color: var(--accent); text-decoration: underline; font-weight: bold;">
-      danielprudenciado74@gmail.com
-    </a>
-  </p>
+<section id="about" class="section">
+  <h2>About Me</h2>
+  <div style="text-align:center; line-height:1.6; color: var(--text); font-size: 1.05rem;">
+    I’m DAN — a Bachelor of Science in Information Technology student with a strong passion for understanding how technology works from the ground up. <br>
+    I design and build real-world applications that merge intuitive front-end experiences with solid, maintainable back-end logic. <br>
+    Driven by curiosity and a mindset for clean, efficient solutions, I approach every project as an opportunity to learn and create meaningful tech.
+  </div>
 </section>
 
-  <footer>
+ <section id="contact" class="section">
+  <h2>Contact</h2>
+  <div style="text-align:center; font-size:1.1rem; line-height:1.8; color: var(--text);">
+    Reach out anytime:<br><br>
+    <a href="mailto:danielprudenciado74@gmail.com" style="color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: bold;">
+      <img src="https://static.dezeen.com/uploads/2020/10/gmail-google-logo-rebrand-workspace-design_dezeen_2364_sq.jpg" alt="Gmail Icon" style="height: 20px; vertical-align: middle;">
+      danielprudenciado74@gmail.com
+    </a>
+  </div>
+</section>
 
-  </footer>
 
   <script>
-    function showSection(id) {
-      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function toggleTheme() {
-      const htmlTag = document.documentElement;
-      const current = htmlTag.getAttribute('data-theme');
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      htmlTag.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const saved = localStorage.getItem("theme");
-      if (saved) {
-        document.documentElement.setAttribute("data-theme", saved);
-      }
+  function showSection(id) {
+    document.querySelectorAll(".section").forEach(section => {
+      section.classList.remove("active");
     });
-  </script>
+    document.getElementById(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleTheme() {
+    const htmlTag = document.documentElement;
+    const current = htmlTag.getAttribute('data-theme');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    htmlTag.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+  });
+</script>
+
 </body>
 </html>

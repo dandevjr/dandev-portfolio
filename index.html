@@ -1,662 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio - Dan dev Jr</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous">
-    <style>
-        :root {
-            --primary-color: #4A90E2;
-            --secondary-color: #6c757d;
-            --accent-color: #2ECC71;
-            --dark-bg: #222831;
-            --light-bg: #EEEEEE;
-            --dark-text: #333333;
-            --light-text: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #e0e0e0;
-            --font-family: 'Inter', sans-serif;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--dark-text);
-            background-color: var(--light-bg);
-            scroll-behavior: smooth;
-        }
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            color: var(--dark-bg);
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .section-padding {
-            padding: 80px 0;
-        }
-        header {
-            background: var(--dark-bg);
-            color: var(--light-text);
-            padding: 1.2rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-        .main-nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding-top: 15px;
-        }
-        .main-nav ul li {
-            margin: 0 20px;
-        }
-        .main-nav ul li a {
-            color: var(--light-text);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 0;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .main-nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease, background-color 0.3s ease;
-        }
-        .main-nav ul li a:hover::after,
-        .main-nav ul li a.active::after {
-            width: 100%;
-            background-color: var(--accent-color);
-        }
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: var(--light-text);
-            padding: 14px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .btn:hover {
-            background-color: #28a745;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-        }
-        .btn-secondary {
-            background: var(--primary-color);
-        }
-        .btn-secondary:hover {
-            background-color: #3f79c2;
-        }
-
-        /* Hero Section */
-        #home {
-            background: linear-gradient(135deg, var(--primary-color), #6D5B9A);
-            color: var(--light-text);
-            text-align: center;
-            padding: 150px 20px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        #home::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%),
-                        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%);
-            animation: rotateBackground 20s linear infinite;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 1s ease-out forwards 0.5s;
-        }
-        .hero-content h1 {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.4);
-            font-weight: 700;
-            line-height: 1.1;
-        }
-        .hero-content h1 span {
-            color: var(--accent-color);
-        }
-        .hero-content p {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
-            max-width: 800px;
-            font-weight: 300;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        /* About Section */
-        #about {
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #about .about-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        #about .about-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 0.8s ease-out forwards 1s;
-        }
-        #about .about-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-        #about .about-image img:hover {
-            transform: translateY(-5px);
-        }
-        #about .about-text {
-            flex: 2;
-            min-width: 300px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 0.8s ease-out forwards 1.2s;
-        }
-        #about .about-text h2 {
-            font-size: 3rem;
-            color: var(--dark-bg);
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        #about .about-text h3 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        #about .about-text p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-        .skill-item {
-            background-color: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .skill-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
-        .skill-item i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        .skill-item span {
-            display: block;
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-
-        /* Projects Section */
-        #projects {
-            background-color: var(--light-bg);
-        }
-        #projects .section-title {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            font-weight: 700;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 0.8s ease-out forwards 0.5s;
-        }
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 0.8s ease-out forwards; /* Will be staggered by JS if desired */
-        }
-        .project-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-        }
-        .project-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .project-card:hover img {
-            transform: scale(1.05);
-        }
-        .project-info {
-            padding: 25px;
-        }
-        .project-info h3 {
-            font-size: 1.8rem;
-            color: var(--dark-bg);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .project-info p {
-            font-size: 1.05rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        .project-tags {
-            margin-bottom: 20px;
-        }
-        .project-tag {
-            display: inline-block;
-            background-color: #e0f0ff;
-            color: var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .project-links a {
-            margin-right: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        .project-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-bg);
-            color: var(--light-text);
-            text-align: center;
-            padding: 2.5rem 0;
-            margin-top: 60px;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
-        }
-        footer .social-links a {
-            color: var(--light-text);
-            font-size: 2rem;
-            margin: 0 12px;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-        footer .social-links a:hover {
-            color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-        footer p {
-            margin-top: 20px;
-            font-size: 1rem;
-            font-weight: 300;
-        }
-
-        /* Animations */
-        @keyframes fadeInSlideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes rotateBackground {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes rotateBackgroundReverse {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(-360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            #home h1 {
-                font-size: 4rem;
-            }
-            #home p {
-                font-size: 1.5rem;
-            }
-            #about .about-content {
-                flex-direction: column;
-            }
-            #about .about-image {
-                margin-bottom: 30px;
-            }
-            #projects .section-title {
-                font-size: 3rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .main-nav ul {
-                flex-direction: column;
-                padding-top: 0;
-            }
-            .main-nav ul li {
-                margin: 8px 0;
-            }
-            #home {
-                padding: 100px 20px;
-                min-height: 70vh;
-            }
-            #home h1 {
-                font-size: 3rem;
-            }
-            #home p {
-                font-size: 1.2rem;
-            }
-            #about .about-text h2 {
-                font-size: 2.5rem;
-            }
-            #about .about-text h3 {
-                font-size: 1.5rem;
-            }
-            #about .about-text p {
-                font-size: 1rem;
-            }
-            #projects .section-title {
-                font-size: 2.5rem;
-            }
-        }
-        @media (max-width: 480px) {
-            #home h1 {
-                font-size: 2.5rem;
-            }
-            #home p {
-                font-size: 1.1rem;
-            }
-            #projects .section-title {
-                font-size: 2.0rem; /* Adjusted for smaller screens to prevent overflow */
-            }
-            footer .social-links a {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DAN | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --text: #e0e0e0;
+      --accent: #19f7e7;
+      --hover: #1a1a1a;
+      --font: 'Inter', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      scroll-behavior: smooth;
+    }
+    header {
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem 0;
+      background: rgba(14,14,14,0.95);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 4rem 1rem;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--accent);
+    }
+    ul.projects, ul.skill-list {
+      list-style: none;
+      padding: 0;
+    }
+    ul.projects li {
+      padding: 1.25rem 1rem;
+      border-bottom: 1px solid #1c1c1c;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    ul.projects li:hover {
+      background: var(--hover);
+    }
+    ul.skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    ul.skill-list li {
+      background: #1c1c1c;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    ul.skill-list li:hover {
+      background: var(--hover);
+      color: var(--accent);
+    }
+    .about {
+      line-height: 1.6;
+      text-align: center;
+      max-width: 700px;
+      margin: auto;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="#home" class="logo">My Portfolio</a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <h1>DAN'S PORTFOLIO</h1>
+    <p>Clean Code. Smart Design. Real Impact.</p>
+  </header>
 
-    <main>
-        <section id="home" class="section-padding">
-            <div class="container hero-content">
-                <h1>Hello, I'm <span>Dan dev Jr</span></h1>
-                <p>I'm a passionate web developer creating interactive and user-friendly digital experiences.</p>
-                <a href="#projects" class="btn">View My Work</a>
-            </div>
-        </section>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+  </nav>
 
-        ---
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="projects">
+      <li>1. Barangay Information System</li>
+      <li>2. Grocery Mall System</li>
+      <li>3. Student Record System</li>
+      <li>4. Inventory Management Dashboard</li>
+      <li>5. Online Voting Platform</li>
+      <li>6. Personal Budget Tracker</li>
+    </ul>
+  </section>
 
-        <section id="about" class="section-padding">
-            <div class="container">
-                <div class="about-content">
-                    <div class="about-image">
-                        <img src="https://scontent.fceb1-3.fna.fbcdn.net/v/t39.30808-6/511273316_693292156884034_5060305897437308227_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHx0Q5RbNRb-s_hTtiw5pY1sWyaGB_947SxbJoYH_3jtAw1lhW0R1Qozdfo60ZCA3vyPAZXbsRBPSlJ05mH_Tjc&_nc_ohc=P5wcU79sch4Q7kNvwG4hc0D&_nc_oc=AdkQSqLCV676RXgQx3BA25WMGh6RvQegDIOtYIHsDFCNgHjvxUtqBt_ATVq8TjQMx0M&_nc_zt=23&_nc_ht=scontent.fceb1-3.fna&_nc_gid=DJVINpFVHwrRt-BzTjNucQ&oh=00_AfOuo1N6C3TXTD1xeWXk5JRDdYgcHPI63VHOG3PplPVemg&oe=686311D5" alt="Daniel Prudenciado">
-                    </div>
-                    <div class="about-text">
-                        <h2>About Me</h2>
-                        <h3>Dedicated to crafting effective and engaging digital solutions.</h3>
-                        <p>I am Daniel Prudenciado, a web developer based in Tacloban City, Eastern Visayas, Philippines. I specialize in building responsive and dynamic web applications. My passion lies in transforming complex problems into elegant, user-centric designs and efficient code.</p>
-                        <p>With a solid foundation in front-end and a growing expertise in back-end technologies, I enjoy bringing ideas to life and continuously learning new technologies to improve my craft.</p>
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="skill-list">
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>Python</li>
+      <li>Java</li>
+      <li>SQL</li>
+      <li>XAMPP</li>
+      <li>GitHub</li>
+      <li>PHP (Basic)</li>
+      <li>Responsive Web Design</li>
+    </ul>
+  </section>
 
-                        <h3>My Skills</h3>
-                        <div class="skills-grid">
-                            <div class="skill-item">
-                                <i class="fab fa-html5"></i>
-                                <span>HTML5</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-css3-alt"></i>
-                                <span>CSS3</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-js"></i>
-                                <span>JavaScript</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-php"></i>
-                                <span>PHP</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-database"></i>
-                                <span>SQL</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-git-alt"></i>
-                                <span>Git</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-python"></i>
-                                <span>Python</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fab fa-java"></i>
-                                <span>Java</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-server"></i>
-                                <span>XAMPP</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-database"></i>
-                                <span>Database</span>
-                            </div>
-                       
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <section id="about">
+    <h2>About Me</h2>
+    <p class="about">
+      Hi, I’m DAN — an IT student who codes with purpose. I specialize in front-end & back-end tech using HTML, CSS, JavaScript, SQL, and XAMPP. Whether it's building systems that serve real communities or crafting clean user interfaces, I bring simplicity and creativity to every line of code.
+    </p>
+  </section>
 
-        ---
-        <section id="projects" class="section-padding text-center">
-            <div class="container">
-                <h2 class="section-title">My Projects</h2>
-                <div class="project-grid">
-                    <div class="project-card" style="box-shadow: 0 8px 24px rgba(74,144,226,0.10), 0 1.5px 6px rgba(44,62,80,0.08); border: 1px solid #e0e0e0; border-radius: 16px; overflow: hidden;">
-                        <img src="https://scontent.fceb1-2.fna.fbcdn.net/v/t39.30808-6/508594531_693297873550129_9123408394417139802_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEMiN9BXegflTd0wvmhRL-tzacK5EN3LXrNpwrkQ3cteopmfDB0VhiNRvp823ceHxtHYk4LlHtNjBw_s40aTgmc&_nc_ohc=bCHgSidB_4wQ7kNvwEZaXg0&_nc_oc=AdnaCSYMlQnQi4B1tqlI3MlOCdFHHDTrmr4UZAqCPhrE_ExudWGGIz-pSvtqdgbZq4Q&_nc_zt=23&_nc_ht=scontent.fceb1-2.fna&_nc_gid=IMqYHatc5c97r5WP2d6TRQ&oh=00_AfOjSa-XfvETT7wiy4ox5BkTnKs7DL2TRCaNnHh4doC4OQ&oe=68631F38" alt="Project 1 Thumbnail" style="border-bottom: 1px solid #e0e0e0;">
-                        <div class="project-info" style="padding: 32px 24px 24px 24px;">
-                            <h3 style="font-size: 1.5rem; color: #4A90E2; margin-bottom: 12px;">Student Record System</h3>
-                            <p style="font-size: 1.05rem; color: #6c757d; margin-bottom: 18px; background: #f7faff; padding: 14px 18px; border-radius: 8px;">
-                                A web application built for managing student records, featuring secure user authentication, a responsive design, and database integration for storing, updating, and viewing academic profiles, courses, and grades.
-                            </p>
-                            <div class="project-tags" style="margin-bottom: 0;">
-                                <span class="project-tag">HTML</span>
-                                <span class="project-tag">CSS</span>
-                                <span class="project-tag">JavaScript</span>
-                                <span class="project-tag">PHP</span>
-                                <span class="project-tag">SQL</span>
-                                <span class="project-tag">Database</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card" style="box-shadow: 0 8px 24px rgba(74,144,226,0.10), 0 1.5px 6px rgba(44,62,80,0.08); border: 1px solid #e0e0e0; border-radius: 16px; overflow: hidden;">
-                        <img src="https://scontent.fceb1-3.fna.fbcdn.net/v/t39.30808-6/510252094_693297943550122_488578198023061506_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHaG17xceMbnL9B_O-Sc54VcWLIr6GmfHpxYsivoaZ8egz5HdtA0J9rJhQyB7P55BmCbzsx7XtlChINhUQHmuO0&_nc_ohc=bbMNTgIl24wQ7kNvwFZX-8L&_nc_oc=AdmTRIvDiU0vYTagtgJEgYZZopV7wI8C__K5wJOyUhU4vVCvgOqPdX328WYkUDql3Hs&_nc_zt=23&_nc_ht=scontent.fceb1-3.fna&_nc_gid=bCZmbk4le7VHZL02zsdu1g&oh=00_AfONEThzUjIzrFkCL1beNP_La7zsc5-9S7SVXyuvUnG29g&oe=68631D5F" alt="Project 2 Thumbnail" style="border-bottom: 1px solid #e0e0e0;">
-                        <div class="project-info" style="padding: 32px 24px 24px 24px;">
-                            <h3 style="font-size: 1.5rem; color: #4A90E2; margin-bottom: 12px;">Barangay Information System</h3>
-                            <p style="font-size: 1.05rem; color: #6c757d; margin-bottom: 18px; background: #f7faff; padding: 14px 18px; border-radius: 8px;">
-                                A web-based Barangay Information System designed to manage resident records, barangay clearances, and local announcements efficiently.
-                            </p>
-                            <div class="project-tags" style="margin-bottom: 0;">
-                                <span class="project-tag">HTML</span>
-                                <span class="project-tag">CSS</span>
-                                <span class="project-tag">JavaScript</span>
-                                <span class="project-tag">PHP</span>
-                                <span class="project-tag">SQL</span>
-                                <span class="project-tag">Database</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card" style="box-shadow: 0 8px 24px rgba(74,144,226,0.10), 0 1.5px 6px rgba(44,62,80,0.08); border: 1px solid #e0e0e0; border-radius: 16px; overflow: hidden;">
-                        <img src="https://scontent.fceb1-3.fna.fbcdn.net/v/t39.30808-6/511025029_693298073550109_1310552068367459263_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGEYgtvlxgOHVZ9i_APDS-KE9WvZ1wQPw8T1a9nXBA_DwUwIUO4nmRNwFEUKbnFOLY5DC4L2DITlGSwoLbxky6w&_nc_ohc=V7ZixKydb1AQ7kNvwHcxU5r&_nc_oc=AdnatkC8gD-YDaEWPb0MoDgD5hnu6xCOC9Z4rKoPlPwuBhApSx60DOZ9E1eO7j-dTYs&_nc_zt=23&_nc_ht=scontent.fceb1-3.fna&_nc_gid=b1S-NukKhW6HRjF-LTy0iQ&oh=00_AfP4PfzNyG6SZojlFoayIUA54nMmSMiTxuj20OO-7Xs4jw&oe=686335E5" alt="Project 3 Thumbnail" style="border-bottom: 1px solid #e0e0e0;">
-                        <div class="project-info" style="padding: 32px 24px 24px 24px;">
-                            <h3 style="font-size: 1.5rem; color: #4A90E2; margin-bottom: 12px;">Robinson's Grocery mall System</h3>
-                            <p style="font-size: 1.05rem; color: #6c757d; margin-bottom: 18px; background: #f7faff; padding: 14px 18px; border-radius: 8px;">
-                                A comprehensive web-based system for Robinson's Grocery Mall, designed to manage inventory, sales, and customer data efficiently. Built using PHP and SQL for robust backend operations and database management.
-                            </p>
-                            <div class="project-tags" style="margin-bottom: 0;">
-                                <span class="project-tag">HTML</span>
-                                <span class="project-tag">CSS</span>
-                                <span class="project-tag">JavaScript</span>
-                                <span class="project-tag">PHP</span>
-                                <span class="project-tag">SQL</span>
-                                <span class="project-tag">Database</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+  <footer>
+    &copy; Built with focus and caffeine ☕
+  </footer>
 
-    <footer>
-        <div class="container text-center">
-            <div class="social-links">
-                <a href="https://www.facebook.com/dnl.exe0" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-            </div>
-            
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                // Update active class
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-
-        // Set active class on scroll
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav ul li a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Stagger project card animation on load
-        document.addEventListener('DOMContentLoaded', () => {
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach((card, index) => {
-                card.style.animationDelay = `${0.2 * index + 1.6}s`; // Stagger animation start
-            });
-        });
-    </script>
+  <script>
+    console.log("Portfolio loaded. Welcome to the future. ⚙️");
+  </script>
 </body>
 </html>

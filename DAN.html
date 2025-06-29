@@ -6,59 +6,73 @@
   <title>DAN | Portfolio</title>
   <style>
     :root {
-      --bg: #0e0e0e;
-      --text: #e0e0e0;
-      --accent: #19f7e7;
-      --hover: #1a1a1a;
-      --font: 'Inter', sans-serif;
+      --bg: #0a0a0a;
+      --text: #f0f0f0;
+      --accent: #00fff7;
+      --hover: #1f1f1f;
+      --font: 'Segoe UI', sans-serif;
+      --fade-time: 0.9s;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
     header {
-      padding: 3rem 1rem;
       text-align: center;
+      padding: 5rem 1rem 3rem;
+      animation: fadeIn var(--fade-time) ease forwards;
     }
     header h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       color: var(--accent);
       margin-bottom: 0.5rem;
+      letter-spacing: 1px;
     }
     header p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #aaa;
     }
     nav {
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
       gap: 2rem;
-      padding: 0.8rem 0;
-      background: rgba(14,14,14,0.95);
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(10px);
+      padding: 1rem;
       z-index: 100;
+      border-bottom: 1px solid #222;
     }
     nav a {
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s;
+      transition: color 0.3s ease;
     }
     nav a:hover {
       color: var(--accent);
     }
     section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
-      padding: 4rem 1rem;
+      padding: 5rem 1.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 2rem;
       text-align: center;
       color: var(--accent);
@@ -67,49 +81,56 @@
       list-style: none;
       padding: 0;
     }
-    ul.projects li {
-      padding: 1.25rem 1rem;
-      border-bottom: 1px solid #1c1c1c;
-      transition: background 0.3s;
+    ul.projects li,
+    ul.skill-list li {
+      background: var(--hover);
+      margin: 0.5rem auto;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      transition: transform 0.3s, background 0.3s;
+      max-width: 600px;
+      text-align: center;
       cursor: pointer;
     }
-    ul.projects li:hover {
-      background: var(--hover);
+    ul.projects li:hover,
+    ul.skill-list li:hover {
+      background: #111;
+      transform: scale(1.03);
+      color: var(--accent);
     }
-    ul.skill-list {
+    .skill-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
     }
-    ul.skill-list li {
-      background: #1c1c1c;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      transition: background 0.3s;
-    }
-    ul.skill-list li:hover {
-      background: var(--hover);
-      color: var(--accent);
-    }
     .about {
-      line-height: 1.6;
+      line-height: 1.7;
       text-align: center;
-      max-width: 700px;
+      max-width: 750px;
       margin: auto;
+      color: #ccc;
+      font-size: 1.05rem;
     }
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 1rem;
       font-size: 0.9rem;
-      color: #666;
+      color: #777;
+      animation: fadeIn var(--fade-time) ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>DAN'S PORTFOLIO</h1>
-    <p>Clean Code. Smart Design. Real Impact.</p>
+    <p>Built by passion. Designed for tomorrow.</p>
   </header>
 
   <nav>
@@ -121,12 +142,12 @@
   <section id="projects">
     <h2>Projects</h2>
     <ul class="projects">
-      <li>1. Barangay Information System</li>
-      <li>2. Grocery Mall System</li>
-      <li>3. Student Record System</li>
-      <li>4. Inventory Management Dashboard</li>
-      <li>5. Online Voting Platform</li>
-      <li>6. Personal Budget Tracker</li>
+      <li>Barangay Information System</li>
+      <li>Grocery Mall System</li>
+      <li>Student Record System</li>
+      <li>Inventory Management Dashboard</li>
+      <li>Online Voting Platform</li>
+      <li>Personal Budget Tracker</li>
     </ul>
   </section>
 
@@ -142,23 +163,40 @@
       <li>XAMPP</li>
       <li>GitHub</li>
       <li>PHP (Basic)</li>
-      <li>Responsive Web Design</li>
+      <li>Responsive Design</li>
     </ul>
   </section>
 
   <section id="about">
     <h2>About Me</h2>
     <p class="about">
-      Hi, I’m DAN — an IT student who codes with purpose. I specialize in front-end & back-end tech using HTML, CSS, JavaScript, SQL, and XAMPP. Whether it's building systems that serve real communities or crafting clean user interfaces, I bring simplicity and creativity to every line of code.
+      I'm DAN — a first-year IT student blending creativity and logic to build software that’s functional and beautiful. My tech stack lives in code editors and localhost servers, and my motivation lives in seeing people use what I build. I believe in minimalist designs, scalable backends, and solving real problems with clean solutions.
     </p>
   </section>
 
   <footer>
-    &copy; Built with focus and caffeine ☕
+
   </footer>
 
   <script>
-    console.log("Portfolio loaded. Welcome to the future. ⚙️");
+    
+    const sections = document.querySelectorAll("section");
+    const options = {
+      threshold: 0.15
+    };
+    const reveal = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      reveal.observe(section);
+    });
+
+    console.log("WELCOME TO MY PORFOLIO");
   </script>
 </body>
 </html>

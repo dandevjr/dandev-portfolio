@@ -6,16 +6,15 @@
   <title>DAN | Portfolio</title>
   <style>
     :root {
-      --bg-light: #f4f4f4;
+      --bg-light: #fefefe;
       --text-light: #111;
       --bg-dark: #0a0a0a;
-      --text-dark: #f4f4f4;
+      --text-dark: #fefefe;
       --accent: #00ffe0;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --hover: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(255,255,255,0.05);
+      --hover: rgba(255,255,255,0.08);
       --font: 'Segoe UI', sans-serif;
     }
-
     [data-theme="light"] {
       --bg: var(--bg-light);
       --text: var(--text-light);
@@ -25,60 +24,25 @@
       --text: var(--text-dark);
     }
 
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
       scroll-behavior: smooth;
-      transition: background 0.4s, color 0.4s;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at center, rgba(0,255,247,0.03) 0%, transparent 70%),
-                  radial-gradient(circle at 30% 70%, rgba(0,255,247,0.04) 0%, transparent 70%),
-                  radial-gradient(circle at 70% 30%, rgba(0,255,247,0.025) 0%, transparent 70%);
-      z-index: 0;
-      pointer-events: none;
-      animation: bgpulse 10s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgpulse {
-      0% { transform: scale(1); opacity: 0.2; }
-      100% { transform: scale(1.1); opacity: 0.4; }
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-      margin: auto;
-      padding: 4rem 2rem;
     }
 
     header {
       text-align: center;
-      padding: 5rem 1rem 3rem;
-      animation: fadeDown 1s ease-out forwards;
+      padding: 4rem 1rem 2rem;
     }
 
     header h1 {
-      font-size: 3.5rem;
+      font-size: 3rem;
       color: var(--accent);
-      letter-spacing: 2px;
       margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #aaa;
     }
 
     nav {
@@ -87,42 +51,47 @@
       background: var(--bg);
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 2rem;
-      padding: 1rem 0.5rem;
+      padding: 1rem;
       border-bottom: 1px solid #222;
-      z-index: 999;
+      z-index: 99;
     }
 
-    nav a {
+    nav button {
+      background: none;
+      border: none;
       color: var(--text);
-      text-decoration: none;
       font-weight: bold;
-      transition: color 0.3s;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
 
-    nav a:hover {
+    nav button:hover {
       color: var(--accent);
+    }
+
+    .section {
+      display: none;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      animation: fade 0.6s ease both;
+    }
+
+    .section.active {
+      display: block;
     }
 
     h2 {
       text-align: center;
-      font-size: 2.4rem;
-      margin: 4rem 0 2rem;
       color: var(--accent);
-    }
-
-    .glass {
-      background: var(--glass-bg);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.15);
-      padding: 2rem;
-      margin: 2rem auto;
-      width: 90%;
-      max-width: 800px;
-      animation: fadeUp 1s ease both;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
     }
 
     ul {
@@ -133,30 +102,23 @@
       gap: 1rem;
     }
 
+    ul.skills {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     li {
-      padding: 1rem;
       background: var(--hover);
+      padding: 1rem;
       border-radius: 8px;
       text-align: center;
-      font-weight: 500;
-      transition: transform 0.3s;
+      transition: 0.3s;
     }
 
     li:hover {
       color: var(--accent);
       transform: scale(1.03);
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .skills li {
-      flex: 1 1 auto;
-      min-width: 120px;
     }
 
     form {
@@ -166,61 +128,56 @@
     }
 
     input, textarea {
-      padding: 0.8rem 1rem;
+      padding: 0.8rem;
       border: none;
       border-radius: 8px;
       background: #222;
-      color: #fff;
+      color: white;
     }
 
     input:focus, textarea:focus {
       outline: 2px solid var(--accent);
     }
 
-    button {
+    button.send {
       background: var(--accent);
       color: black;
-      padding: 0.8rem;
+      font-weight: bold;
       border: none;
       border-radius: 8px;
-      font-weight: bold;
+      padding: 0.8rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
-    button:hover {
+    button.send:hover {
       background: #00e6cc;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      font-size: 0.9rem;
-      color: #888;
     }
 
     .toggle-btn {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 1.5rem;
+      right: 1.5rem;
       background: var(--glass-bg);
-      border: 1px solid rgba(255,255,255,0.1);
       color: var(--accent);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 0.5rem 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      z-index: 9999;
+      border-radius: 10px;
       backdrop-filter: blur(10px);
+      cursor: pointer;
+      z-index: 1000;
     }
 
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -229,19 +186,18 @@
   <button class="toggle-btn" onclick="toggleTheme()">🌗 Theme</button>
 
   <header>
-    <h1>DAN'S PORTFOLIO</h1>
+    <h1>DAN | PORTFOLIO</h1>
   </header>
 
   <nav>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <button onclick="showSection('projects')">Projects</button>
+    <button onclick="showSection('skills')">Skills</button>
+    <button onclick="showSection('about')">About</button>
+    <button onclick="showSection('contact')">Contact</button>
   </nav>
 
   <div class="container">
-
-    <section id="projects" class="glass">
+    <section id="projects" class="section active">
       <h2>Projects</h2>
       <ul>
         <li>Barangay Information System</li>
@@ -253,29 +209,59 @@
       </ul>
     </section>
 
-    <section id="skills" class="glass">
+    <section id="skills" class="section">
       <h2>Skills</h2>
       <ul class="skills">
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Python</li>
-        <li>Java</li>
-        <li>SQL</li>
-        <li>XAMPP</li>
-        <li>GitHub</li>
-        <li>PHP (Basic)</li>
-        <li>Responsive Design</li>
+        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li>
+        <li>Java</li><li>SQL</li><li>XAMPP</li><li>GitHub</li>
+        <li>PHP (Basic)</li><li>Responsive Design</li>
       </ul>
     </section>
 
-    <section id="about" class="glass">
+    <section id="about" class="section">
       <h2>About Me</h2>
-      <p style="text-align: center; line-height: 1.6;">
+      <p style="text-align:center; line-height:1.6;">
         Hello, I'm DAN — a BSIT student who enjoys learning how technology works from the inside out.  
         I’m especially interested in both front-end design and back-end logic, and I spend my time building practical projects that help me grow.  
         I'm still learning, but I’m always curious and excited to create solutions that are simple, useful, and thoughtfully built.
       </p>
     </section>
 
-    <section id="contact" class="glass">
+<section id="contact" class="section">
+  <h2>Contact</h2>
+  <p style="text-align:center; font-size:1.1rem; line-height:1.8;">
+    If you'd like to get in touch, feel free to message me directly via Gmail:<br>
+    <a href="mailto:danielprudenciado74@gmail.com" style="color: var(--accent); text-decoration: underline; font-weight: bold;">
+      danielprudenciado74@gmail.com
+    </a>
+  </p>
+</section>
+
+  <footer>
+
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleTheme() {
+      const htmlTag = document.documentElement;
+      const current = htmlTag.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      htmlTag.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("theme");
+      if (saved) {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    });
+  </script>
+</body>
+</html>

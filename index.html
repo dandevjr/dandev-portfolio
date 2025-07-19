@@ -231,12 +231,23 @@ To encourage consistent participation, EcoTac introduces a reward system where t
 
 <section id="contact">
   <h2 class="section-title">Contact Me</h2>
-  <form id="contact-form">
-    <input type="text" placeholder="Your Name" required />
-    <input type="email" value="dandevjr@gmail.com" readonly />
-    <textarea rows="5" placeholder="Message" required></textarea>
-    <button type="submit">Send</button>
+  <form id="contact-form" onsubmit="sendEmail(event)">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <textarea id="message" rows="5" placeholder="Message" required></textarea>
+    <button type="submit">Send via Gmail</button>
   </form>
+
+  <script>
+    function sendEmail(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+      const subject = encodeURIComponent("Message from " + name);
+      const body = encodeURIComponent(message);
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=danielprudenciado74@gmail.com&su=${subject}&body=${body}`;
+      window.open(mailtoLink, '_blank');
+    }
+  </script>
 </section>
 
 <footer>
